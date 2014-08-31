@@ -8,10 +8,10 @@ NetHack v. Angry Monkey (1.0)
  - И ещё что-то
 
 Используются:
-PBOSL (PureBasic Open Source Libraries)
-DroopyLib
-PureColor
-PureResizer
-PureForm
+ - PBOSL (PureBasic Open Source Libraries)
+ - DroopyLib
+ - PureColor
+ - PureResizer
+ - PureForm
 
 Язык программирования - PureBasic 5.30
