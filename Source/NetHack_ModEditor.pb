@@ -203,13 +203,13 @@ Procedure Save()
   EndIf
 EndProcedure
 ; IDE Options = PureBasic 5.30 (Windows - x86)
-; CursorPosition = 147
-; FirstLine = 124
+; CursorPosition = 165
+; FirstLine = 154
 ; Folding = --
 ; EnableUnicode
 ; EnableXP
 ; EnableOnError
-; Executable = NetHack_ModEditor.exe
+; Executable = ..\Binaries\NetHack_ModEditor.exe
 ; IncludeVersionInfo
 ; VersionField0 = 0,0,0,0
 ; VersionField1 = 0,0,0,0

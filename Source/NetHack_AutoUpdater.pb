@@ -22,7 +22,7 @@ If OpenWindow(0, 0, 0, 320, 230, "NetHack Updater", #PB_Window_ScreenCentered | 
   AnimateWindow_(WindowID(0),2500,#AW_BLEND|#AW_ACTIVATE) ; плавное появление...
   txtGadget = TextGadget(#PB_Any, 0, 0, 320, 230, "Запущено", #PB_Text_Border)
   DeleteDirectory("data", "", #PB_FileSystem_Force|#PB_FileSystem_Recursive)
-  UpdateFile("NetHackEditor.exe")
+  UpdateFile("NetHack_Editor.exe")
   UpdateFile("data.zip")
   UpdateFile("sounds.zip")
   Repeat
@@ -48,12 +48,12 @@ Procedure UpdateFile(File.s)
   EndIf
 EndProcedure
 ; IDE Options = PureBasic 5.30 (Windows - x86)
-; CursorPosition = 26
+; CursorPosition = 24
 ; FirstLine = 11
 ; Folding = -
 ; EnableUnicode
 ; EnableXP
-; Executable = NetHackAUpd.exe
+; Executable = ..\Binaries\NetHackAUpd.exe
 ; IncludeVersionInfo
 ; VersionField0 = 1,0,0,0
 ; VersionField1 = 1,0,0,0
