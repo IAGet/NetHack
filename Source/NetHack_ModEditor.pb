@@ -2,9 +2,10 @@
 ; http://github.com/IAGet/NetHack/
 ; Написано на PureBasic 5.11 Win x64
 
-XIncludeFile "NetHack_OnError.pbi"
+XIncludeFile "NetHack_MainSettings.pbi"
+XIncludeFile "NetHack_OnError.pbi" ; инклудим обработчик ошибок (заменяет стандартный пуриковский)
 
-OnErrorCall(@ErrorHandler())
+OnErrorCall(@ErrorHandler()) ; и заменяем его
 
 XIncludeFile "NetHack_ModEditor_Lang.pbi" ; язык...
 XIncludeFile "NetHack_CheckData.pbi" ; проверка на присутствие ресурсов (файлы языка и т.д)
@@ -21,10 +22,7 @@ EndIf
 AboutWinBtnPrsd = 0 ; остальные переменные
 
 #NetHack_VERSION = "Angry Monkey" ; версия (шок ужас непонятки)
-#NetHack_VERSION_N = 1
-#NetHack_Page = "http://github.com/AGet/NetHack/" ; в about адрес пишется...
-#NetHack_UpdScr = "http://test1.ru/NetHack/nethack_version" ; проверяем содержание этого файла, если там цифра больше #NetHack_VERSION_N - 
-; предлагаем обновление
+#NetHack_Page = "http://nethack.hop.ru/" ; в about адрес пишется...
 
 #NewLine = Chr(13) + Chr(10) ; символ новой строки :)
 
@@ -147,7 +145,7 @@ Procedure AboutWindow()
     AboutMessage + #NewLine + #NewLine
     AboutMessage + ReadString(0)
     AboutMessage + #NewLine + #NewLine + #NewLine
-    AboutMessage + "http://github.com/AGet/NetHack/"
+    AboutMessage + #NetHack_Page
     AboutMessage + #NewLine + #NewLine
     AboutMessage + "(c) 2012, 2014 AGet"
     ; Set About Message End
@@ -166,8 +164,21 @@ EndProcedure
 
 Procedure CheckUpdates()
   ; Проверка на новую версию
-  ; Тут участвует #NetHack_UpdScr
-  ; И если есть новая верса, открываем NetHackAUpd.exe
+  ; Не проверено...
+  If ReceiveHTTPFile(#UpdateSite+"nhack_ver", GetTemporaryDirectory()+"nhack_ver") = 0 : MessageRequester("NetHack", "Не могу заполучить "+#UpdateSite+"!", #MB_ICONERROR) : EndIf
+  If ReadFile(0, GetTemporaryDirectory()+"nhack_ver") : version$ = ReadString(0) : EndIf
+  If #NetHack_VERSION_N < Int(version)
+    Select MessageRequester("NetHack", "Найдено обновление, запускать обновление?", #MB_YESNO)
+      Case #PB_MessageRequester_Yes:
+        KillProcess(GetPidProcess("NetHack.exe"))
+        KillProcess(GetPidProcess("NetHack_ModEditor.exe"))
+        KillProcess(GetPidProcess("NetHackAUpd.exe"))
+        RunProgram("NetHackAUpd.exe")
+        End
+      Case #PB_MessageRequester_No:
+        ; ничего...
+    EndSelect
+  EndIf
 EndProcedure
 
 Procedure OpenModFile() ; реакция на #MenuItem_Open
@@ -192,10 +203,12 @@ Procedure Save()
   EndIf
 EndProcedure
 ; IDE Options = PureBasic 5.30 (Windows - x86)
-; CursorPosition = 1
+; CursorPosition = 147
+; FirstLine = 124
 ; Folding = --
 ; EnableUnicode
 ; EnableXP
+; EnableOnError
 ; Executable = NetHack_ModEditor.exe
 ; IncludeVersionInfo
 ; VersionField0 = 0,0,0,0

@@ -4,6 +4,7 @@
 ; http://github.com/IAGet/NetHack/
 
 #Pack_Data = 0 ; для архива data.zip :)
+#Pack_Sounds = 0 ; для архива sounds.zip :(
 
 CompilerIf #PB_Compiler_OS = #PB_OS_Windows : #Sep = "\"
 CompilerElseIf #PB_Compiler_OS = #PB_OS_Linux : #Sep = "/"
@@ -51,10 +52,25 @@ If ExaminePack(#Pack_Data) ; начинаем лазить по архиву
     EndIf
   Wend
 EndIf
+ClosePack(#Pack_Data)
+
+If OpenPack(#Pack_Sounds, "sounds.zip") = 0 : MessageRequester("NetHack", "Не могу открыть sounds.zip", #MB_ICONERROR) : End : EndIf
+
+If ExaminePack(#Pack_Sounds) ; начинаем лазить по архиву
+  While NextPackEntry(#Pack_Sounds) ; пока у нас есть файлы там
+    If PackEntryType(#Pack_Sounds) = 0 ; если файл
+      UncompressPackFile(#Pack_Sounds, "data"+#Sep+PackEntryName(#Pack_Data)) ; распаковываем...
+    ElseIf PackEntryType(#Pack_Sounds) = 1 ; если папка...
+      CreateDirectory("data"+#Sep+PackEntryName(#Pack_Sounds)) ; создаём её...
+    EndIf
+  Wend
+EndIf
+ClosePack(#Pack_Sounds)
   
 after:
 ; IDE Options = PureBasic 5.30 (Windows - x86)
-; CursorPosition = 3
+; CursorPosition = 67
+; FirstLine = 31
 ; Folding = -
 ; EnableUnicode
 ; EnableXP
