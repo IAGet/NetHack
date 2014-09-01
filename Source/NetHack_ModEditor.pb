@@ -7,6 +7,7 @@ XIncludeFile "NetHack_OnError.pbi" ; инклудим обработчик ош�
 
 OnErrorCall(@ErrorHandler()) ; и заменяем его
 
+XIncludeFile "NetHack_TextScroller.pbi" ; для скроллинга текста
 XIncludeFile "NetHack_ModEditor_Lang.pbi" ; язык...
 XIncludeFile "NetHack_CheckData.pbi" ; проверка на присутствие ресурсов (файлы языка и т.д)
 
@@ -151,6 +152,9 @@ Procedure AboutWindow()
     ; Set About Message End
     CloseFile(0)
     TextGadget(#PB_Any, 20, 30, 380, 150, AboutMessage, #PB_Text_Border)
+    ; Scroller
+    
+    ; Scroller
     ButtonGadget(#About_Window_Button, 20, 180, 380, 30, "")
   Else
     MessageRequester("Ошибка", "Не могу :o", #MB_ICONERROR)
@@ -203,8 +207,7 @@ Procedure Save()
   EndIf
 EndProcedure
 ; IDE Options = PureBasic 5.30 (Windows - x86)
-; CursorPosition = 165
-; FirstLine = 154
+; CursorPosition = 9
 ; Folding = --
 ; EnableUnicode
 ; EnableXP
